@@ -17,7 +17,7 @@ for res in reservations2:
         if 'Name' in inst.tags:
             print "%s (%s) [%s]" % (inst.tags['Name'], inst.id, inst.state)
         else:
-            print "%s [%s]" % (inst.id, inst.state)			
+            print "%s [%s]" % (inst.id, inst.state)	  		 
 			
 			
 			
