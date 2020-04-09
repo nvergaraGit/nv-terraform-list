@@ -16,54 +16,26 @@ variables:
 
 stages:
   - build
-  - test
   - package
   - deploy
 
 cache:
     paths:
-      - node_modules/
 
 build:
-  image: node:7-alpine
+  image: python:3.5
   stage: build
   script:
-  - npm install
+  - python list.py
   artifacts:
     paths:
-      - node_modules/
-
-test:
-  image: node:7-alpine
-  stage: test
-  script:
-  - npm test 
 
 package:
   stage: package
   script:
     -  docker login -u nelsonv -p 123456
-    -  docker build -t nelsonv/node:0.1 .
-    -  docker push nelsonv/node:0.1
+    -  docker build -t nelsonv/python:0.1 .
+    -  docker push nelsonv/python:0.1
       
-deploy:
-  image: alpine:3.10
-  stage: deploy
-  script:
-    - apk update  && apk add --no-cache curl grep
-    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-    - chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
-    - pwd
-    - echo $HOME
-    - mkdir -p $HOME/.kube
-    - echo "${KUBECONFIG}" | base64 -d > config
-    - kubectl --kubeconfig=config get ns
-    - kubectl --kubeconfig=config apply -f kube_yaml_nv_e.yaml
-    - kubectl --kubeconfig=config apply -f service_node.yaml
-  artifacts:
-    untracked: false
-    expire_in: 30 days
-    paths:
-      - config 
 
 
