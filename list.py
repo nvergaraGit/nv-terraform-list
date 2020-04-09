@@ -8,3 +8,5 @@ for res in reservations:
         else:
             print "%s [%s]" % (inst.id, inst.state)
 			
+			
+			
