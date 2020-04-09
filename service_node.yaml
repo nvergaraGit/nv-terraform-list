@@ -1,0 +1,16 @@
+kind: Service 
+apiVersion: v1 
+metadata:
+  name: node-service 
+spec: 
+  type: LoadBalancer
+  selector:
+    app: node 
+
+  ports:
+    # Three types of ports for a service
+    # nodePort - a static port assigned on each the node
+    # port - port exposed internally in the cluster
+    # targetPort - the container port to send requests to
+    - port: 80
+      targetPort: 5000

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: nodedeploy
+        image: nelsonv/node:0.2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+
+
+
