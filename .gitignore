@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> ba988ab4749d8eabf9665559b8eea4587d06455f
 # Local development
 *.env
 *.dev
