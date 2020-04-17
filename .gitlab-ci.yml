@@ -15,10 +15,16 @@ variables:
   #  SPRING_PROFILES_ACTIVE: gitlab-ci
 
 stages:
+  - test
   - build
   - package
   - deploy
 
+test:
+  image: python:3.5
+  stage: test
+  script: "python -m unittest discover"
+  
 cache:
     paths:
 
@@ -33,7 +39,7 @@ build:
 package:
   stage: package
   script:
-    -  docker login -u nelsonv -p 123456
+    -  docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD"
     -  docker build -t nelsonv/python:0.1 .
     -  docker push nelsonv/python:0.1
       
